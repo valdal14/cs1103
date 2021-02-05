@@ -1,6 +1,6 @@
-import java.util.concurrent.Callable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 public class Main implements Callable<Integer> {
 
@@ -26,9 +26,19 @@ public class Main implements Callable<Integer> {
 			}
 		});
 		
+		System.out.println("---------------------------------------------");
+		
+		System.out.println("Fibonacci Loop ------------------------------");
+		// Execute Memoized Fibonacci
+		calculateRunningTime(new Callable<Integer>() {
+			public Integer call() {
+				return printFibonacciLoop();
+			}
+		});
+
 	}
 	
-	// Fibonacci sequence
+	// Fibonacci sequence (Recursion)
 	private static Integer printFibonacci() {
 		
 		for (int i = 0; i < MAXNUMBER; i++) {
@@ -39,7 +49,7 @@ public class Main implements Callable<Integer> {
 		return 0;
 	}
 	
-	// Memoized Fibonacci sequence
+	// Memoized Fibonacci sequence (Recursion)
 	private static Integer printMemoizedFibonacci() {
 		
 		for (int i = 0; i < MAXNUMBER; i++) {
@@ -47,6 +57,12 @@ public class Main implements Callable<Integer> {
 		}
 		
 		System.out.println("");
+		return 0;
+	}
+	
+	// Fionacci (Loop version)
+	private static Integer printFibonacciLoop() {
+		Fibonacci.fibonacciLoop(MAXNUMBER);
 		return 0;
 	}
 	
@@ -110,4 +126,24 @@ class Fibonacci {
 			return v;
 		}
 	}
+	
+	public static void fibonacciLoop(int n) {
+		int count = 0;
+		int n1 = 0;
+		int n2 = 1;
+		int num = 0;
+		
+		if(n == 0 || n == 1) {
+			System.out.println(n);
+		} else {
+			while(count < (n - 1)) {
+				System.out.println(num);
+				num = n1 + n2;
+				n1 = n2;
+				n2 = num;
+				count += 1;
+			}
+		}
+	}
 }
+
